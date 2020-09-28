@@ -1,0 +1,133 @@
+/**! SMACSS method - learning*!/
+/**---------------------------------------!*/
+
+/** BASE: color - background - font
+/**====================================*/
+body {
+  background-color: #f6f5f5;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+h2 {
+  font-size: 2.5em;
+  font-family: "Roboto", sans-serif;
+}
+.monitor tr:nth-of-type(even) {
+  background-color: #aee3ffe0;
+}
+
+/** LAYOUT
+/**====================================*/
+h2 {
+  text-align: center;
+}
+.officesList {
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.office {
+  width: 180px;
+  margin: 0.5em;
+  padding: 0.8em;
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px darkgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.office table {
+  table-layout: auto;
+  width: 95%;
+}
+
+.monitor {
+  width: 75%;
+  padding: 2em;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.monitor td {
+  width: 3em;
+  margin: 2em;
+  line-height: 1.4em;
+}
+
+/** MODULE: Management of all modular elements
+/**====================================*/
+
+/** STATE: Status Management
+/**====================================*/
+
+/** THEME: Basic Layout Modifications Following Action
+/**====================================*/
+@media (min-width: 861px) {
+  .monitor {
+    box-shadow: 2px 2px 8px darkgray;
+  }
+  .monitor td {
+    border-top: 1px solid darkgrey;
+  }
+}
+
+@media (max-width: 860px) {
+  .monitor thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .monitor {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+  .monitor td,
+  .monitor tr {
+    display: block;
+    padding: 0;
+  }
+
+  .monitor tr {
+    margin-bottom: 1px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0.5em 0;
+    box-shadow: 1px 1px 6px darkgray;
+  }
+  .monitor tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .monitor td {
+    text-align: left;
+    border-top: none;
+    width: auto;
+    margin: 0 1em;
+    line-height: 1.8em;
+  }
+
+  .monitor td:not(:last-child) {
+    border-bottom: 1px solid darkgray;
+  }
+
+  .monitor td:before {
+    content: attr(title) " :";
+    display: inline-block;
+    width: 50%;
+    margin-right: 10px;
+    padding: 0 10px;
+    text-align: right;
+    padding-right: 10px;
+    white-space: break-spaces;
+    font-weight: bold;
+  }
+}
+/**SHAME: All unclassified tweaks
+/**====================================*/
