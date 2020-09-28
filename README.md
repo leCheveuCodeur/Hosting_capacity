@@ -16,7 +16,6 @@ You'll need a working text editor to read this document.
 VS Code or Atom would work just fine.....
 ```
 
-
 ## Built with
 
 - [HTML5](https://developer.mozilla.org/es/docs/HTML/HTML5)
