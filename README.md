@@ -6,7 +6,7 @@ Training with PHP - Study of the hosting capacity of a company.
 
 ## How it work
 
-![tickets_tracker](./art/tickets_tracker.gif)
+![hosting_capacity](./art/hosting_capacity.gif)
 
 ## Prerequisites
 
