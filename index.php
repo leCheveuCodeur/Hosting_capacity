@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <title>Exo 1</title>
-</head>
-
-<body>
   <?php
   class Office
   {
@@ -170,131 +158,58 @@
   $society->office5 = new DevOffice(51, 81, 71, 61, 31);
   $society->setAvailablePlaceInDev();
   $society->setAvailablePlaceInSale();
-  ?>
 
-  <section>
-    <h2>Equipment and office capacity</h2>
-    <div class="officesList">
-      <?php
+
+  function displayLoop($varRand, $object)
+  {
+    if ($varRand == 0) { // is Salesman
       for ($i = 1, $stop = false; $stop !== true; $i++) { // iterate on offices
         $office_i = 'office' . $i;
-        if (isset($society->$office_i)) {
-          echo '<div class="office">';
-          $target = $society->$office_i;
-          if (get_class($target) == 'SalesOffice') {
-            echo '<h3>Salesmen\'s Office ' . $i . '</h3>';
-          } else {
-            echo '<h3>Developers\'s Office ' . $i . '</h3>';
-          }
-          echo
-            '<table>
-            <tr>
-              <td>Network Socket</td>
-              <td>' . $target->getNbNetworkSocket() . '</td>
-            </tr>
-            <tr>
-              <td>Mains Socket</td>
-              <td>' . $target->getNbMainsSocket() . '<td>
-            </tr>
-            <tr>
-              <td>Phone Socket</td>
-              <td>' . $target->getNbPhoneSocket() . '</td>
-            </tr>
-            <tr>
-              <td>Chairs</td>
-              <td>' . $target->getNbChairs() . '</td>
-            </tr>
-            <tr>
-              <td>Tables</td>
-              <td>' . $target->getNbTables() . '</td>
-            </tr>
-          </table>
-          ';
-          if (get_class($target) == 'SalesOffice') {
-            echo '<p>Capacity : ' . $target->getAvailablePlace() . ' Salesmen</p>';
-          } else {
-            echo '<p>Capacity : ' . $target->getAvailablePlace() . ' Developers</p>';
-          }
-          echo '</div>';
+        if (isset($object->$office_i) && get_class($object->$office_i) == 'SalesOffice' && $object->$office_i->getAvailablePlace() > 0) {
+          $target = $object->$office_i;
+          $target->setAvailableSpace($target->getAvailablePlace() - 1);
+          $target->setNbStaff($target->getNbStaff() + 1);
+          $varRand = 'Salesman in Office' . $i;
+          $stop = true;
         } else {
           $office_bis = 'office' . ($i + 1);
-          if (!isset($society->$office_bis)) {
+          if (!isset($object->$office_bis)) {
             $stop = true;
           }
         }
       }
-      ?>
-    </div>
-  </section>
-  <section>
-    <h2>Monitoring of office occupancy</h2>
-    <table class="monitor">
-      <thead>
-        <tr>
-          <th>New Arrivant</th>
-          <th>Nb of Salesmen</th>
-          <th>Nb of Developers</th>
-          <th>Available space in Salesmen's Office 1</th>
-          <th>Available space in Salesmen's Office 2</th>
-          <th>Available space in Salesmen's Office 3</th>
-          <th>Available space in Developers's Office 1</th>
-          <th>Available space in Developers's Office 2</th>
-          <th>Available space in the Society</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <?php
-        function displayLoop($varRand, $object)
-        {
-          if ($varRand == 0) { // is Salesman
-            for ($i = 1, $stop = false; $stop !== true; $i++) { // iterate on offices
-              $office_i = 'office' . $i;
-              if (isset($object->$office_i) && get_class($object->$office_i) == 'SalesOffice' && $object->$office_i->getAvailablePlace() > 0) {
-                $target = $object->$office_i;
-                $target->setAvailableSpace($target->getAvailablePlace() - 1);
-                $target->setNbStaff($target->getNbStaff() + 1);
-                $varRand = 'Salesman in Office' . $i;
-                $stop = true;
-              } else {
-                $office_bis = 'office' . ($i + 1);
-                if (!isset($object->$office_bis)) {
-                  $stop = true;
-                }
-              }
-            }
-          } else { // is Developer
-            for ($i = 1, $stop = false; $stop !== true; $i++) { // iterate on offices
-              $office_i = 'office' . $i;
-              if (isset($object->$office_i) && get_class($object->$office_i) == 'DevOffice' && $object->$office_i->getAvailablePlace() > 0) {
-                $target = $object->$office_i;
-                $target->setAvailableSpace($target->getAvailablePlace() - 1);
-                $target->setNbStaff($target->getNbStaff() + 1);
-                $varRand = 'Developer in Office' . $i;
-                $stop = true;
-              } else {
-                $office_bis = 'office' . ($i + 1);
-                if (!isset($object->$office_bis)) {
-                  $stop = true;
-                }
-              }
-            }
+    } else { // is Developer
+      for ($i = 1, $stop = false; $stop !== true; $i++) { // iterate on offices
+        $office_i = 'office' . $i;
+        if (isset($object->$office_i) && get_class($object->$office_i) == 'DevOffice' && $object->$office_i->getAvailablePlace() > 0) {
+          $target = $object->$office_i;
+          $target->setAvailableSpace($target->getAvailablePlace() - 1);
+          $target->setNbStaff($target->getNbStaff() + 1);
+          $varRand = 'Developer in Office' . $i;
+          $stop = true;
+        } else {
+          $office_bis = 'office' . ($i + 1);
+          if (!isset($object->$office_bis)) {
+            $stop = true;
           }
+        }
+      }
+    }
 
-          //compute
-          $nbSalesmen = $object->office1->getNbStaff() + $object->office2->getNbStaff() + $object->office3->getNbStaff();
-          $nbDevelopers = $object->office4->getNbStaff() + $object->office5->getNbStaff();
-          $availableSpaceOff1 = $object->office1->getAvailablePlace();
-          $availableSpaceOff2 = $object->office2->getAvailablePlace();
-          $availableSpaceOff3 = $object->office3->getAvailablePlace();
-          $availableSpaceOff4 = $object->office4->getAvailablePlace();
-          $availableSpaceOff5 = $object->office5->getAvailablePlace();
-          $availableSpaceSociety = $availableSpaceOff1 + $availableSpaceOff2 + $availableSpaceOff3 + $availableSpaceOff4 + $availableSpaceOff5;
-          $object->setAvailablePlaceInDev();
-          $object->setAvailablePlaceInSale();
+    //compute
+    $nbSalesmen = $object->office1->getNbStaff() + $object->office2->getNbStaff() + $object->office3->getNbStaff();
+    $nbDevelopers = $object->office4->getNbStaff() + $object->office5->getNbStaff();
+    $availableSpaceOff1 = $object->office1->getAvailablePlace();
+    $availableSpaceOff2 = $object->office2->getAvailablePlace();
+    $availableSpaceOff3 = $object->office3->getAvailablePlace();
+    $availableSpaceOff4 = $object->office4->getAvailablePlace();
+    $availableSpaceOff5 = $object->office5->getAvailablePlace();
+    $availableSpaceSociety = $availableSpaceOff1 + $availableSpaceOff2 + $availableSpaceOff3 + $availableSpaceOff4 + $availableSpaceOff5;
+    $object->setAvailablePlaceInDev();
+    $object->setAvailablePlaceInSale();
 
-          //display
-          echo '<tr>
+    //display
+    echo '<tr>
                     <td title="New Arrivant">' . $varRand . '</td>
                     <td title="Nb of Salesmen">' . $nbSalesmen . '</td>
                     <td title="Nb of Developers">' . $nbDevelopers . '</td>
@@ -305,24 +220,6 @@
                     <td title="Available space in Developers\'s Office 2">' . $availableSpaceOff5 . '</td>
                     <td title="Available space in the Society">' . $availableSpaceSociety . '</td>
                     </tr>';
-        }
+  }
 
-        while ($society->availablePlaceInDev > 0 || $society->availablePlaceInSale > 0) {
-          if ($society->availablePlaceInDev > 0 && $society->availablePlaceInSale > 0) {
-            $typePerso = rand(0, 1);
-            displayLoop($typePerso, $society);
-          } elseif ($society->availablePlaceInDev == 0 && $society->availablePlaceInSale > 0) {
-            $typePerso = 0;
-            displayLoop($typePerso, $society);
-          } elseif ($society->availablePlaceInSale == 0 && $society->availablePlaceInDev > 0) {
-            $typePerso = 1;
-            displayLoop($typePerso, $society);
-          }
-        }
-
-        ?>
-      </tbody>
-  </section>
-</body>
-
-</html>
+  require('display.php');
